@@ -1,6 +1,3 @@
-## Put comments here that give an overall description of what your
-## functions do
-
 ## "makeCacheMatrix" is a function that defines variables and functions, then returns a list of the defined functions. the purpose of this function is to take advantage of scoping to store the inverse of a function. To further elaborate, the list that is returned is a data structure that will hold a matrix, a inverse, and allow some ops on said matrix and inverse, namely storing them and getting them
 ## | myMatrix        |
 ## -------------------
