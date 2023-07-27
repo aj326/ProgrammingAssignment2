@@ -19,19 +19,24 @@
 ## "getInverse" <- function to get inverse
 ## 
 
-
+cacheMatrix_names = c("set","get","setInverse","getInverse")
 makeCacheMatrix <- function(x = matrix()) {
         inverse<- NULL
+        
         set <- function(y) {
                 x <<- y
                 inverse<<- NULL
         }
         get <- function() x
         setInverse <- function(solve) inverse<<- solve
-        getInverse <- function() m
-        list(set = set, get = get,
-             setInverse = setInverse,
-             getInverse = getInverse)
+        getInverse <- function() inverse
+        
+        
+        cacheMatrix<-list(set,get,setInverse,getInverse)
+        names(cacheMatrix)<-cacheMatrix_names
+        
+        return(cacheMatrix)
+        
 }
 
 
@@ -41,16 +46,20 @@ makeCacheMatrix <- function(x = matrix()) {
 ## cacheSolve: checks if cache (inverse of 'x') exists. If so, returns cache; otherwise, computes inverse of 'x' and stores it as cache
 ## x is a special matrix constructed by the above function, 'makeCacheMatrix'
 cacheSolve <- function(x, ...) {
+        result<-matrix()
+        if(!identical(names(x),cacheMatrix_names)) stop("passed variable does not match cacheMatrix data structure. use function: makeCacheMatrix(x) to construct a sound data structure.")
+        
         ##check if cache of inverse exists. If so, return it
         if (!is.null(x$getInverse())){
                 message("getting cached data")
-                return(x$getInverse())
+                result<-x$getInverse()
         }
         #otherwise, compute and store it, then return it
         else{
                 mymat <- x$get()
-                inverse <- x$setInverse(solve(mymat),...)
-                return(inverse)
+                result <- x$setInverse(solve(mymat),...)
+                result<-inverse
         }
         ## Return a matrix that is the inverse of 'x'
+        result
 }
