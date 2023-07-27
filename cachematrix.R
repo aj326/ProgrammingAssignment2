@@ -39,7 +39,7 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ## Assumption(s): - the matrix supplied is always invertible.
 ##                - user is responsible to set rm.na   
-##                - This function will not type/class check x 
+##                - This function will attempt to type/class check x, by investigating names() for the passed variable
 ## cacheSolve: checks if cache (inverse of 'x') exists. If so, returns cache; otherwise, computes inverse of 'x' and stores it as cache
 ## x is a special matrix constructed by the above function, 'makeCacheMatrix'
 cacheSolve <- function(x, ...) {
